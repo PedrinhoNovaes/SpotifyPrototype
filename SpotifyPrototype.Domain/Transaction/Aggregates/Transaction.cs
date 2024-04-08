@@ -1,5 +1,4 @@
-﻿using SpotifyPrototype.Domain.Account.Aggregates;
-using SpotifyPrototype.Domain.Shared;
+﻿using SpotifyPrototype.Domain.Core.ValueObject;
 using SpotifyPrototype.Domain.Transaction.ValueObject;
 using System;
 using System.Collections.Generic;
@@ -9,25 +8,12 @@ using System.Threading.Tasks;
 
 namespace SpotifyPrototype.Domain.Transaction.Aggregates
 {
-    public class Transaction : Entity
+    public class Transaction
     {
-        public Value Amount { get; set; }
-        public string MerchantId { get; set; }
+        public Guid Id { get; set; }
+        public DateTime TransactionDate { get; set; }
+        public Monetary Value { get; set; }
         public string Description { get; set; }
-        public TransactionStatus Status { get; set; }
-
-        public Transaction()
-        {
-            Amount = new Value(0); // Valor padrão para Amount
-            Status = TransactionStatus.Pending; // Valor padrão para Status
-        }
-
-        public Transaction(Value amount, string merchantId, string description) : base()
-        {
-            Amount = amount;
-            MerchantId = merchantId;
-            Description = description;
-            Status = TransactionStatus.Pending;
-        }
+        public Merchant Merchant { get; set; }
     }
 }

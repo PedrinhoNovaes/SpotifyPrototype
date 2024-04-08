@@ -1,51 +1,91 @@
-﻿using SpotifyPrototype.Domain.Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SpotifyPrototype.Domain.Core.Extension;
+using SpotifyPrototype.Domain.Core.ValueObject;
+using SpotifyPrototype.Domain.Streaming.Aggregates;
+using SpotifyPrototype.Domain.Transaction.Aggregates;
+using SpotifyPrototype.Domain.Transaction.ValueObject;
 
 namespace SpotifyPrototype.Domain.Account.Aggregates
 {
-    public class User : Entity
+    public class User
     {
-        private static HashSet<string> _existingEmails = new HashSet<string>();
-        private static HashSet<string> _existingCPFs = new HashSet<string>();
-        public readonly object CreditCards;
+        private const string PLAYLIST_NAME = "Favorites";
 
-        public string Username { get; set; }
-        public string CPF { get; set; }
-        public DateTime BirthDate { get; set; }
-        public string Avatar { get; set; }
+        public Guid Id { get; set; }
+        public string Name { get; set; }
         public string Email { get; set; }
-        public object AccountId { get; set; }
-        public object CreditCard { get; set; }
+        public string Password { get; set; }
+        public DateTime BirthDate { get; set; }
+        public virtual IList<Card> Cards { get; set; } = new List<Card>();
+        public virtual IList<Signature> Signatures { get; set; } = new List<Signature>();
+        public virtual IList<Playlist> Playlists { get; set; } = new List<Playlist>();
+        public virtual IList<Notification.Notification> Notifications { get; set; } = new List<Notification.Notification>();
 
-        public User()
+        public void CreateAccount(string name, string email, string password, DateTime birthDate, Plan plan, Card card)
         {
-            Avatar = string.Empty;
+            this.Name = name;
+            this.Email = email;
+            this.BirthDate = birthDate;
+
+            // Encrypt the password
+            this.Password = this.EncryptPassword(password);
+
+            // Subscribe to a plan
+            this.SubscribeToPlan(plan, card);
+
+            // Add card to user's account
+            this.AddCard(card);
+
+            // Create user's default playlist
+            this.CreatePlaylist(name: PLAYLIST_NAME, publicPlaylist: false);
         }
 
-        public User(string username, string cpf, DateTime birthDate, string avatar, string email) : base()
+        public void CreatePlaylist(string name, bool publicPlaylist = true)
         {
-            if (_existingEmails.Contains(email))
+            this.Playlists.Add(new Playlist()
             {
-                throw new InvalidOperationException("Este email já está cadastrado.");
-            }
+                Name = name,
+                Public = publicPlaylist,
+                CreationDate = DateTime.Now,
+                User = this
+            });
+        }
 
-            if (_existingCPFs.Contains(cpf))
+        private void AddCard(Card card)
+        {
+            this.Cards.Add(card);
+        }
+
+        private void SubscribeToPlan(Plan plan, Card card)
+        {
+            // Debit the plan value from the card
+            card.CreateTransaction(new Merchant() { Name = plan.Name }, new Monetary(plan.Value), plan.Description);
+
+            // Deactivate if there's any active account
+            DeactivateActiveAccount();
+
+            // Add a new account
+            this.Signatures.Add(new Signature()
             {
-                throw new InvalidOperationException("Este CPF já está cadastrado.");
+                Active = true,
+                Plan = plan,
+                ActivationDate = DateTime.Now,
+            });
+        }
+
+        private void DeactivateActiveAccount()
+        {
+            // If there's any active account, deactivate it
+            if (this.Signatures.Count > 0 && this.Signatures.Any(x => x.Active))
+            {
+                var activePlan = this.Signatures.FirstOrDefault(x => x.Active);
+                activePlan.Active = false;
             }
+        }
 
-            Username = username;
-            CPF = cpf;
-            BirthDate = birthDate;
-            Avatar = avatar;
-            Email = email;
-
-            _existingEmails.Add(email);
-            _existingCPFs.Add(cpf);
+        private string EncryptPassword(string password)
+        {
+            return password.HashSHA256();
         }
     }
+
 }

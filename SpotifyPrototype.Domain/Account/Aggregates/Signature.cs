@@ -2,18 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace SpotifyPrototype.Domain.Account.Aggregates
 {
-    public class Playlist
+    public class Signature
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
-        public bool Public { get; set; }
-        public virtual User User { get; set; }
-        public virtual IList<Song> Songs { get; set; }
-        public DateTime CreationDate { get; set; }
+        public virtual Plan Plan { get; set; }
+        public bool Active { get; set; }
+        public DateTime ActivationDate { get; set; }
+
     }
 }

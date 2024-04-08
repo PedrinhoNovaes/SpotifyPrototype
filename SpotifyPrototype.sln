@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34018.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpotifyPrototype.Domain", "src\domain\SpotifyPrototype.Domain\SpotifyPrototype.Domain.csproj", "{88996FBC-A948-454D-AB80-3123CFFD7DB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotifyPrototype.Tests", "SpotifyPrototype.Tests\SpotifyPrototype.Tests.csproj", "{1B603A4D-BE6C-443E-AC45-25698FD13193}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpotifyPrototype.Tests", "SpotifyPrototype.Tests\SpotifyPrototype.Tests.csproj", "{1B603A4D-BE6C-443E-AC45-25698FD13193}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotifyPrototype.Domain", "SpotifyPrototype.Domain\SpotifyPrototype.Domain.csproj", "{B169C8A6-A5DD-4349-9D51-1DC894A6B9C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpotifyPrototype.Repository", "SpotifyPrototype.Repository\SpotifyPrototype.Repository.csproj", "{DA040F83-2E7E-457F-92FE-606F97F2386C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotifyPrototype.Repository", "SpotifyPrototype.Repository\SpotifyPrototype.Repository.csproj", "{2E5B0503-2700-4DCD-AFE1-14AEE87A4E3B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotifyPrototype.Api", "SpotifyPrototype.Api\SpotifyPrototype.Api.csproj", "{3FD5A28B-FDCA-4193-93DF-400323BB05E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpotifyPrototype.Application", "SpotifyPrototype.Application\SpotifyPrototype.Application.csproj", "{5F6E3FA0-BCAD-466B-8195-AEEB61E58090}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +19,26 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{88996FBC-A948-454D-AB80-3123CFFD7DB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{88996FBC-A948-454D-AB80-3123CFFD7DB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{88996FBC-A948-454D-AB80-3123CFFD7DB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{88996FBC-A948-454D-AB80-3123CFFD7DB8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1B603A4D-BE6C-443E-AC45-25698FD13193}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1B603A4D-BE6C-443E-AC45-25698FD13193}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B603A4D-BE6C-443E-AC45-25698FD13193}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B603A4D-BE6C-443E-AC45-25698FD13193}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DA040F83-2E7E-457F-92FE-606F97F2386C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA040F83-2E7E-457F-92FE-606F97F2386C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA040F83-2E7E-457F-92FE-606F97F2386C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA040F83-2E7E-457F-92FE-606F97F2386C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B169C8A6-A5DD-4349-9D51-1DC894A6B9C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B169C8A6-A5DD-4349-9D51-1DC894A6B9C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B169C8A6-A5DD-4349-9D51-1DC894A6B9C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B169C8A6-A5DD-4349-9D51-1DC894A6B9C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E5B0503-2700-4DCD-AFE1-14AEE87A4E3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E5B0503-2700-4DCD-AFE1-14AEE87A4E3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E5B0503-2700-4DCD-AFE1-14AEE87A4E3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E5B0503-2700-4DCD-AFE1-14AEE87A4E3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FD5A28B-FDCA-4193-93DF-400323BB05E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FD5A28B-FDCA-4193-93DF-400323BB05E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FD5A28B-FDCA-4193-93DF-400323BB05E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FD5A28B-FDCA-4193-93DF-400323BB05E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F6E3FA0-BCAD-466B-8195-AEEB61E58090}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F6E3FA0-BCAD-466B-8195-AEEB61E58090}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F6E3FA0-BCAD-466B-8195-AEEB61E58090}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F6E3FA0-BCAD-466B-8195-AEEB61E58090}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
