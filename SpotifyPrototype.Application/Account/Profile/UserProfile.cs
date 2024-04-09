@@ -27,7 +27,7 @@ namespace SpotifyPrototype.Application.Account.Profile
                 });
 
             CreateMap<CardDto, Card>()
-                .ForMember(dest => dest.Limit.Value, opt => opt.MapFrom(src => src.Limit))
+                .ForMember(dest => dest.Limit, opt => opt.MapFrom(src => src.Limit))
                 .ReverseMap();
         }
     }
