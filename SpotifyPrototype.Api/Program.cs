@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using SpotifyPrototype.Application.Account;
-using SpotifyPrototype.Application.Account.Profile;
+using SpotifyPrototype.Application.Conta;
+using SpotifyPrototype.Application.Conta.Profile;
 using SpotifyPrototype.Application.Streaming;
 using SpotifyPrototype.Repository;
 using SpotifyPrototype.Repository.Repository;
@@ -13,26 +13,40 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddDbContext<SpotifyPrototypeContext>(c =>
 {
     c.UseLazyLoadingProxies()
-     .UseSqlServer(builder.Configuration.GetConnectionString("SpotifyConnection"));
+     .UseSqlServer(builder.Configuration.GetConnectionString("SpotifyPrototypeConnection"));
 });
 
+builder.Services.AddAutoMapper(typeof(UsuarioProfile).Assembly);
 
-builder.Services.AddAutoMapper(typeof(UserProfile).Assembly);
+// Repository
+builder.Services.AddScoped<UsuarioRepository>();
+builder.Services.AddScoped<PlanoRepository>();
+builder.Services.AddScoped<AutorRepository>();
+builder.Services.AddScoped<EstiloMusicalRepository>();
+builder.Services.AddScoped<AlbumRepository>();
+builder.Services.AddScoped<MusicaRepository>();
 
+// Service
+builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped<AutorService>();
+builder.Services.AddScoped<AlbumService>();
+builder.Services.AddScoped<CartaoService>();
+builder.Services.AddScoped<MusicaService>();
 
-//Repositories
-builder.Services.AddScoped<UserRepository>();
-builder.Services.AddScoped<PlanRepository>();
-builder.Services.AddScoped<BandRepository>();
+builder.Services.AddCors(c =>
+{
+    c.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins("http://localhost:4200");
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
 
-//Services
-builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<BandService>();
-
+    });
+});
 
 var app = builder.Build();
 
@@ -41,6 +55,8 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+
 }
 
 app.UseHttpsRedirection();
@@ -50,3 +66,4 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+

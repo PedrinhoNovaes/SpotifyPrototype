@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 
 namespace SpotifyPrototype.Repository.Mapping.Streaming
 {
-    public class AlbumMapping : IEntityTypeConfiguration<Album>
+    public class InterpreteMapping : IEntityTypeConfiguration<Interprete>
     {
-        public void Configure(EntityTypeBuilder<Album> builder)
+        public void Configure(EntityTypeBuilder<Interprete> builder)
         {
+            builder.ToTable(nameof(Interprete));
+
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.Nome).IsRequired().HasMaxLength(50);

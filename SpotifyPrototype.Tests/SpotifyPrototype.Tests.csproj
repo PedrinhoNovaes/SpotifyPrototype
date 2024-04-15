@@ -25,4 +25,8 @@
     <ProjectReference Include="..\SpotifyPrototype.Domain\SpotifyPrototype.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Domain\" />
+  </ItemGroup>
+
 </Project>

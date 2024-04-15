@@ -9,13 +9,16 @@ using System.Threading.Tasks;
 
 namespace SpotifyPrototype.Repository.Mapping.Streaming
 {
-    public class AlbumMapping : IEntityTypeConfiguration<Album>
+    public class AutorMapping : IEntityTypeConfiguration<Autor>
     {
-        public void Configure(EntityTypeBuilder<Album> builder)
+        public void Configure(EntityTypeBuilder<Autor> builder)
         {
+            builder.ToTable(nameof(Autor));
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).ValueGeneratedOnAdd();
             builder.Property(x => x.Nome).IsRequired().HasMaxLength(50);
+            builder.Property(x => x.Descricao).HasMaxLength(500);
+            builder.Property(x => x.Backdrop).HasMaxLength(500);
         }
     }
 }

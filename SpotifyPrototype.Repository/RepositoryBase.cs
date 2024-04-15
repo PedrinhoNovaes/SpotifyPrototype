@@ -38,7 +38,7 @@ namespace SpotifyPrototype.Repository
             return this.Context.Set<T>().ToList();
         }
 
-        public T GetById(Guid id)
+        public T? GetById(Guid id)
         {
             return this.Context.Set<T>().Find(id);
         }
