@@ -36,15 +36,13 @@ builder.Services.AddScoped<AlbumService>();
 builder.Services.AddScoped<CartaoService>();
 builder.Services.AddScoped<MusicaService>();
 
-builder.Services.AddCors(c =>
+builder.Services.AddCors(options =>
 {
-    c.AddDefaultPolicy(builder =>
+    options.AddDefaultPolicy(builder =>
     {
-        builder.WithOrigins("http://localhost:4200");
-        builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader();
-
+        builder.WithOrigins("http://localhost:4200") // Permitir apenas requisições do endereço da sua aplicação Angular
+               .AllowAnyMethod() // Permitir todos os métodos HTTP (GET, POST, PUT, DELETE, etc.)
+               .AllowAnyHeader(); // Permitir todos os cabeçalhos HTTP
     });
 });
 
@@ -55,15 +53,10 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-
-
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors(); // Habilitar o middleware CORS
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
-
