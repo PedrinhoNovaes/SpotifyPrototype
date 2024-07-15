@@ -4,14 +4,15 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace SpotifyPrototype.Repository
 {
     public abstract class RepositoryBase<T> where T : class, new()
     {
-        protected SpotifyPrototypeContext Context { get; set; }
+        protected DbContext Context { get; set; }
 
-        public RepositoryBase(SpotifyPrototypeContext context)
+        public RepositoryBase(DbContext context)
         {
             Context = context;
         }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SpotifyPrototype.Application.Streaming.Dto;
+using SpotifyPrototype.Domain.Streaming.Aggregates;
 using SpotifyPrototype.Repository.Repository;
 using System;
 using System.Collections.Generic;
@@ -9,36 +10,37 @@ using System.Threading.Tasks;
 
 namespace SpotifyPrototype.Application.Streaming
 {
-    public class AlbumService
+    public class AlbumService(
+       AutorRepository autorRepository,
+       IMapper mapper,
+       AlbumRepository albumRepository,
+       MusicaRepository musicaRepository
+       )
     {
-        private AutorRepository AutorRepository;
-        private AlbumRepository AlbumRepository;
-        private IMapper mapper;
-
-        public AlbumService(AutorRepository autorRepository, IMapper mapper, AlbumRepository albumRepository)
-        {
-            this.AutorRepository = autorRepository;
-            this.mapper = mapper;
-            this.AlbumRepository = albumRepository;
-        }
-
         public AlbumDto? Obter(Guid IdAutor, Guid IdAlbum)
         {
-            var autor = this.AutorRepository.GetById(IdAutor);
+            var autor = autorRepository.GetById(IdAutor);
 
             if (autor == null)
                 return null;
 
-            var album = AlbumRepository.Find(x => x.AutorPrincipal.Id == IdAutor && x.Id == IdAutor).FirstOrDefault();
+            var album = albumRepository.Find(x => x.AutorPrincipal.Id == IdAutor && x.Id == IdAutor).FirstOrDefault();
 
-            return this.mapper.Map<AlbumDto>(album);
+            return mapper.Map<AlbumDto>(album);
+        }
+
+        public AlbumDto Obter(Guid IdAlbum)
+        {
+            var album = albumRepository.GetById(IdAlbum);
+
+            return mapper.Map<AlbumDto>(album);
         }
 
         public List<AlbumDto> ObterPorAutor(Guid IdAutor, Guid IdUsuario)
         {
-            var albuns = AlbumRepository.Find(x => x.AutorPrincipal.Id == IdAutor).ToList();
+            var albuns = albumRepository.Find(x => x.AutorPrincipal.Id == IdAutor).ToList();
 
-            var albunsDto = this.mapper.Map<List<AlbumDto>>(albuns);
+            var albunsDto = mapper.Map<List<AlbumDto>>(albuns);
 
             albunsDto?.ForEach(x => {
                 foreach (var item in x.Musicas)
@@ -48,6 +50,49 @@ namespace SpotifyPrototype.Application.Streaming
             });
 
             return albunsDto ?? [];
+        }
+
+        public List<AlbumDto> ObterPorAutor(Guid IdAutor)
+        {
+            var albuns = albumRepository.Find(x => x.AutorPrincipal.Id == IdAutor).ToList();
+
+            var albunsDto = mapper.Map<List<AlbumDto>>(albuns);
+
+            return albunsDto ?? [];
+        }
+
+        public List<AlbumDto> ObterTodos()
+        {
+            var albuns = albumRepository.GetAll();
+
+            var albunsDto = mapper.Map<List<AlbumDto>>(albuns);
+
+            return albunsDto ?? [];
+        }
+
+        public void Salvar(AlbumDto dto)
+        {
+            var musica = musicaRepository.GetById(dto.IdMusicaPrincipal) ?? throw new Exception("Não foi possivel localizar a musica principal.");
+
+            var autor = autorRepository.GetById(dto.IdAutorPrincipal) ?? throw new Exception("Não foi possivel localizar o autor principal.");
+
+            List<Musica> musicas = [];
+            musicas.Add(musica);
+
+            var album = Album.Criar(dto.Nome, musicas, autor, dto.Capa);
+
+            albumRepository.Save(album);
+        }
+
+        public void AdicionarMusica(AdicionarMusicaDto dto)
+        {
+            var musica = musicaRepository.GetById(dto.IdMusica) ?? throw new Exception("Não foi possivel localizar a musica.");
+
+            var album = albumRepository.GetById(dto.IdAlbum) ?? throw new Exception("Não foi possivel localizar o álbum.");
+
+            album.Musicas.Add(musica);
+
+            albumRepository.Update(album);
         }
     }
 }

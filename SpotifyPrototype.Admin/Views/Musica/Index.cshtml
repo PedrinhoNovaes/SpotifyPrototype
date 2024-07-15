@@ -1,0 +1,36 @@
+﻿@model IEnumerable<SpotifyPrototype.Application.Streaming.Dto.MusicaDto>
+
+<div class="text-center">
+    <h1 class="display-4">Músicas</h1>
+    <h6>Autor: @ViewBag.AutorNome</h6>
+</div>
+
+<div>
+    <a type="button" role="button" class="btn btn-primary" href="/Musica/Criar?IdAutor=@ViewBag.IdAutor">Cadastrar musica</a>
+</div>
+
+<div>
+    <table class="table table-striped-columns">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Nome</td>
+                <td>Letra</td>
+                <td>Autores</td>
+                <td>Álbum</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Nome</td>
+                    <td>@item.Letra</td>
+                    <td>@item.Autores</td>
+                    <td>@item.Album</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SpotifyPrototype.Application.Streaming.Dto;
+using SpotifyPrototype.Domain.Streaming.Aggregates;
 using SpotifyPrototype.Repository.Repository;
 using System;
 using System.Collections.Generic;
@@ -9,29 +10,24 @@ using System.Threading.Tasks;
 
 namespace SpotifyPrototype.Application.Streaming
 {
-    public class MusicaService
+    public class MusicaService(
+        MusicaRepository musicaRepository,
+        UsuarioRepository usuarioRepository,
+        EstiloMusicalRepository estiloMusicalRepository,
+        AutorRepository autorRepository,
+        IMapper mapper)
     {
-        private readonly MusicaRepository musicaRepository;
-        private readonly UsuarioRepository usuarioRepository;
-        private readonly IMapper mapper;
-
-        public MusicaService(MusicaRepository musicaRepository, UsuarioRepository usuarioRepository, IMapper mapper)
-        {
-            this.musicaRepository = musicaRepository;
-            this.usuarioRepository = usuarioRepository;
-            this.mapper = mapper;
-        }
-
         public List<MusicaDto> BuscarMusica(Guid idUsuario, String texto)
         {
             var musicas = musicaRepository.Find(x => x.Nome.Contains(texto) || x.Letra.Contains(texto)).ToList();
 
-            var musicasDto = this.mapper.Map<List<MusicaDto>>(musicas);
+            var musicasDto = mapper.Map<List<MusicaDto>>(musicas);
 
             musicasDto.ForEach(musica =>
             {
                 musica.favorito = musicas.Any(y => y.Playlists.Any(t => t.Autor.Id == idUsuario) && y.Id == musica.Id);
             });
+
             return musicasDto ?? [];
         }
 
@@ -69,7 +65,7 @@ namespace SpotifyPrototype.Application.Streaming
 
             musicaRepository.Update(musica);
 
-            return this.mapper.Map<MusicaDto>(musica);
+            return mapper.Map<MusicaDto>(musica);
         }
 
         public List<MusicaDto> favoritas(Guid idUsuario)
@@ -88,11 +84,42 @@ namespace SpotifyPrototype.Application.Streaming
                 throw new Exception("Falha ao localizar os favoritos do usuário.");
             }
 
-            var musicas = this.mapper.Map<List<MusicaDto>>(playlist.Musicas);
+            var musicas = mapper.Map<List<MusicaDto>>(playlist.Musicas);
 
             musicas.ForEach(x => x.favorito = true);
 
             return musicas;
+        }
+
+        public List<MusicaDto> ObterMusicas(Guid IdAutor)
+        {
+            var musicas = musicaRepository.Find(x => x.Autores.Any(x => x.Id == IdAutor)).ToList();
+
+            var musicasDto = mapper.Map<List<MusicaDto>>(musicas);
+
+            return musicasDto ?? [];
+        }
+
+        public void Salvar(MusicaDto dto)
+        {
+            var estilo = estiloMusicalRepository.GetById(dto.IdEstiloMusical) ?? throw new Exception("Não foi possivel localizar o estilo musical.");
+            List<Autor> autores = [];
+
+            var autor = autorRepository.GetById(dto.IdAutor) ?? throw new Exception("Não foi possivel localizar o autor.");
+            autores.Add(autor);
+
+            var musica = Musica.Criar(dto.Nome, dto.Letra, estilo, autores);
+
+            musicaRepository.Save(musica);
+        }
+
+        public List<MusicaDto> ObterMusicasSemAlbum(Guid IdAutor)
+        {
+            var musicas = musicaRepository.Find(x => x.Autores.Any(x => x.Id == IdAutor) && x.Albuns.Count == 0).ToList();
+
+            var musicasDto = mapper.Map<List<MusicaDto>>(musicas);
+
+            return musicasDto ?? [];
         }
     }
 }

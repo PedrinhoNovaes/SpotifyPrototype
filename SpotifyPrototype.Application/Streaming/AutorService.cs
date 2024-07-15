@@ -45,5 +45,12 @@ namespace SpotifyPrototype.Application.Streaming
 
             return this.mapper.Map<List<AutorDto>>(result);
         }
+
+        public void Salvar(AutorDto dto)
+        {
+            var autor = mapper.Map<Autor>(dto);
+
+            _autorRepository.Save(autor);
+        }
     }
 }
