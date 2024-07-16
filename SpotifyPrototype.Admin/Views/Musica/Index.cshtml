@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<SpotifyPrototype.Application.Streaming.Dto.MusicaDto>
 
 <div class="text-center">
-    <h1 class="display-4">Músicas</h1>
-    <h6>Autor: @ViewBag.AutorNome</h6>
+    <h1 class="display-4">Songs</h1>
+    <h6>Author: @ViewBag.AutorNome</h6>
 </div>
 
 <div>
-    <a type="button" role="button" class="btn btn-primary" href="/Musica/Criar?IdAutor=@ViewBag.IdAutor">Cadastrar musica</a>
+    <a type="button" role="button" class="btn btn-primary" href="/Musica/Criar?IdAutor=@ViewBag.IdAutor">Add Song</a>
 </div>
 
 <div>
@@ -14,10 +14,10 @@
         <thead>
             <tr>
                 <td>ID</td>
-                <td>Nome</td>
-                <td>Letra</td>
-                <td>Autores</td>
-                <td>Álbum</td>
+                <td>Name</td>
+                <td>Lyrics</td>
+                <td>Authors</td>
+                <td>Album</td>
             </tr>
         </thead>
         <tbody>

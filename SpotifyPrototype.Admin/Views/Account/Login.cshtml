@@ -1,8 +1,48 @@
 ﻿@model SpotifyPrototype.Admin.Models.LoginRequest;
 
-<h1>Login</h1>
-<div class="row">
-    <div class="col-md-4">
+@{
+    Layout = null; // Define que esta página não terá um layout padrão
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - SpotifyPrototype.Admin</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 300px; /* Diminui o tamanho do formulário */
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .login-image {
+            width: 100px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <img class="login-image" src="https://i.pinimg.com/564x/cf/4e/65/cf4e658777be0eee3d3b804ff1925942.jpg" alt="Login Image" />
+        <h1>Spotify Prototype Admin</h1>
         <form asp-action="Login" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
@@ -11,14 +51,18 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Senha" class="control-label"></label>
+                <label asp-for="Senha" class="control-label">Password</label>
                 <input asp-for="Senha" class="form-control" type="password"/>
                 <span asp-validation-for="Senha" class="text-danger"></span>
             </div>
-            <div class="form-group" style="margin-top: 10px;">
-                <input value="Entrar" class="btn btn-primary" type="submit" />
-                <a class="btn btn-outline-primary" href="/User/Criar">Criar conta</a>
+            <div class="form-group">
+                <input value="Sign In" class="btn btn-primary" type="submit" />
+                <a class="btn btn-outline-primary" href="/User/Criar">Register</a>
             </div>
         </form>
     </div>
-</div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

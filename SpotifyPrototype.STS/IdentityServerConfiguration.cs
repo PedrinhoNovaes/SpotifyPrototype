@@ -18,15 +18,15 @@ namespace SpotifyPrototype.STS
         {
             return new List<ApiResource>()
             {
-                new ApiResource("SpotMusic", "SpotMusic", new string[] { "SpotMusic" })
+                new ApiResource("SpotifyPrototype", "SpotifyPrototype", new string[] { "SpotifyPrototype" })
                 {
                     ApiSecrets =
                     {
-                        new Secret("SpotMusic".Sha256())
+                        new Secret("SpotifyPrototype".Sha256())
                     },
                     Scopes =
                     {
-                        "SpotMusicScope"
+                        "SpotifyPrototypeScope"
                     }
                 }
             };
@@ -38,9 +38,9 @@ namespace SpotifyPrototype.STS
             {
                 new ApiScope()
                 {
-                    Name = "SpotMusicScope",
-                    DisplayName = "SpotMusicScope API",
-                    UserClaims = { "SpotMusicScope" }
+                    Name = "SpotifyPrototypeScope",
+                    DisplayName = "SpotifyPrototypeScope API",
+                    UserClaims = { "SpotifyPrototypeScope" }
                 }
             };
         }
@@ -51,12 +51,12 @@ namespace SpotifyPrototype.STS
             {
                 new Client()
                 {
-                    ClientId = "client-angular-spotmusic",
-                    ClientName = "Acesso do fronte as apis",
+                    ClientId = "client-angular-SpotifyPrototype",
+                    ClientName = "Acesso do front as apis",
                     AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
                     ClientSecrets =
                     {
-                        new Secret("SpotMusicScope".Sha256())
+                        new Secret("SpotifyPrototypeScope".Sha256())
                         {
 
                         }
@@ -65,7 +65,7 @@ namespace SpotifyPrototype.STS
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "SpotMusicScope"
+                        "SpotifyPrototypeScope"
                     }
                 }
             };

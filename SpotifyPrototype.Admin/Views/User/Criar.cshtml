@@ -1,39 +1,40 @@
 ﻿@model SpotifyPrototype.Application.Admin.Dto.UsuarioAdminDto
 
-<form method="post" asp-controller="User" asp-action="Salvar">
+<form method="post" asp-controller="User" asp-action="Save">
     <div class="row mb-3">
-        <label for="Nome" class="col-sm-2 col-form-label">Nome</label>
+        <label for="Nome" class="col-sm-2 col-form-label">Name</label>
         <div class="col-sm-10">
-            @Html.TextBoxFor(x => x.Nome, new { @class = "form-control"})
+            @Html.TextBoxFor(x => x.Nome, new { @class = "form-control" })
             <span class="form-field-invalid" asp-validation-for="Nome"></span>
         </div>
     </div>
     <div class="row mb-3">
-        <label for="Email" class="col-sm-2 col-form-label">E-mail</label>
+        <label for="Email" class="col-sm-2 col-form-label">Email</label>
         <div class="col-sm-10">
             @Html.TextBoxFor(x => x.Email, new { @class = "form-control", Type = "Email" })
             <span class="form-field-invalid" asp-validation-for="Email"></span>
         </div>
     </div>
     <div class="row mb-3">
-        <label for="Senha" class="col-sm-2 col-form-label">Senha</label>
+        <label for="Senha" class="col-sm-2 col-form-label">Password</label>
         <div class="col-sm-10">
-            @Html.PasswordFor(x => x.Senha, new { @class = "form-control"})
+            @Html.PasswordFor(x => x.Senha, new { @class = "form-control" })
             <span class="form-field-invalid" asp-validation-for="Senha"></span>
         </div>
     </div>
 
     <div class="row mb-3">
-        <label for="Perfil" class="col-sm-2 col-form-label">Perfil</label>
+        <label for="Perfil" class="col-sm-2 col-form-label">Profile</label>
         <div class="col-sm-10">
-            <select class="form-select" aria-label="Perfil" asp-for="Perfil">
-                <option value="" selected>Selecione um pefil</option>
-                <option value="1">FULL</option>
-                <option value="2">Normal</option>
+            <select class="form-select" aria-label="Profile" asp-for="Perfil">
+                <option value="" selected>Select a profile</option>
+                <option value="1">ADMIN</option>
+                <option value="2">PREMIUM</option>
+                <option value="3">FREE</option>
             </select>
             <span class="form-field-invalid" asp-validation-for="Perfil"></span>
         </div>
     </div>
 
-    <button type="submit" class="btn btn-primary">Cadastrar</button>
+    <button type="submit" class="btn btn-primary">Register</button>
 </form>

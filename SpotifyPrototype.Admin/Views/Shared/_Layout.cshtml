@@ -7,38 +7,96 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SpotifyPrototype.Admin.styles.css" asp-append-version="true" />
+    <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .table-striped-columns tbody tr:nth-child(odd) {
+            background-color: #343a40; /* Dark grey */
+            color: #ffffff; /* White text */
+        }
+        .table-striped-columns tbody tr:nth-child(even) {
+            background-color: #ffffff; /* White */
+            color: #000000; /* Black text */
+        }
+        .table-striped-columns thead tr td {
+            font-weight: bold; /* Bold column titles */
+        }
+    </style>
+</head>
+    <head>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+    <style>
+        body {
+            background: linear-gradient(to bottom, pink, white);
+        }
+        .navbar-text {
+            flex-grow: 1;
+            text-align: center;
+        }
+        .nav-link {
+            margin-right: 15px;
+            background-color: lightblue;
+            border-radius: 5px;
+            color: white !important;
+            padding: 10px 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .nav-link:hover {
+            background-color: #007bff; /* Azul mais escuro */
+            color: white !important;
+        }
+        header {
+            background: linear-gradient(to right, #e6e6fa, #ff69b4); /* Lilás para rosa */
+        }
+        .sign-out-button {
+            background-color: #ff69b4;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            padding: 5px 10px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .sign-out-button:hover {
+            background-color: #ff1493; /* Rosa mais escuro */
+            color: white;
+        }
+        .navbar-text .user-name {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SpotifyPrototype.Admin</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+               
+               
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Usuarios</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Autor" asp-action="Index">Autores</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Album" asp-action="Index">Álbuns </a>
-                            </li>
-                        </ul>
-                        <span class="navbar-text">
-                            Seja bem vindo, @User.Identity.Name
-                            <a href="/Account/Logout">Sair</a>
-                        </span>
-                    </div>
+                        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                            <ul class="navbar-nav flex-grow-1">
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Autor" asp-action="Index">Artists</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="" asp-controller="Album" asp-action="Index">Albums</a>
+                                </li>
+                            </ul>
+                            <span class="navbar-text">
+                                <span class="user-name">Hello, @User.Identity.Name</span>
+                                <a class="sign-out-button" href="/Account/Logout">Sign Out</a>
+                            </span>
+                        </div>
                 }
             </div>
         </nav>

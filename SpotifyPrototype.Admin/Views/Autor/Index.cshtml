@@ -1,23 +1,23 @@
 ﻿@model IEnumerable<SpotifyPrototype.Application.Streaming.Dto.AutorDto>
 
 <div class="text-center">
-    <h1 class="display-4">Autores</h1>
+    <h1 class="display-4">Artists</h1>
 </div>
 
 <div>
-    <a type="button" role="button" class="btn btn-primary" href="/Autor/Criar">Cadastrar autor</a>
+    <a type="button" role="button" class="btn btn-primary" href="/Autor/Criar">Add New Artist</a>
 </div>
 
 <div>
     <table class="table table-striped-columns">
         <thead>
             <tr>
-                <td>ID</td>
-                <td>Nome</td>
-                <td>Descrição</td>
-                <td>Imagem</td>
-                <td></td>
-                <td></td>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Albums</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
@@ -27,11 +27,34 @@
                     <td>@item.Id</td>
                     <td>@item.Nome</td>
                     <td>@item.Descricao</td>
-                    <td><img src="@(item.Backdrop)" width="200" height="200" />  </td>
-                    <td><a type="button" role="button" class="btn btn-primary" href="/Musica/Index?IdAutor=@item.Id">Musicas</a></td>
-                    <td><a type="button" role="button" class="btn btn-primary" href="/Album/Index?IdAutor=@item.Id">Álbuns</a></td>
+                    <td><img src="@(item.Backdrop)" width="200" height="200" /></td>
+                    <td>
+                        <a type="button" role="button" class="btn btn-primary" href="/Album/Index?AuthorId=@item.Id">Albums</a>
+                    </td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="statusSwitch_@item.Id">
+                            <label class="form-check-label" for="statusSwitch_@item.Id" data-on="Active" data-off="Inactive">Active</label>
+                        </div>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+
+@* Script para alternar as cores dos switches *@
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.form-check-input').on('change', function () {
+                var isChecked = $(this).prop('checked');
+                if (isChecked) {
+                    $(this).next('.form-check-label').removeClass('text-danger').addClass('text-success').text($(this).next('.form-check-label').data('on'));
+                } else {
+                    $(this).next('.form-check-label').removeClass('text-success').addClass('text-danger').text($(this).next('.form-check-label').data('off'));
+                }
+            });
+        });
+    </script>
+}

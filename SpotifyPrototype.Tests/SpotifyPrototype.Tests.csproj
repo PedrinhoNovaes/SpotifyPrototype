@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <PackageReference Include="Moq" Version="4.20.70" />
     <PackageReference Include="xunit" Version="2.7.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.7">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -22,11 +23,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SpotifyPrototype.Admin\SpotifyPrototype.Admin.csproj" />
+    <ProjectReference Include="..\SpotifyPrototype.Api\SpotifyPrototype.Api.csproj" />
+    <ProjectReference Include="..\SpotifyPrototype.Application\SpotifyPrototype.Application.csproj" />
     <ProjectReference Include="..\SpotifyPrototype.Domain\SpotifyPrototype.Domain.csproj" />
+    <ProjectReference Include="..\SpotifyPrototype.Repository\SpotifyPrototype.Repository.csproj" />
+    <ProjectReference Include="..\SpotifyPrototype.STS\SpotifyPrototype.STS.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Domain\" />
+    <Folder Include="Api\" />
+    <Folder Include="Application\" />
+    <Folder Include="STS\" />
   </ItemGroup>
 
 </Project>

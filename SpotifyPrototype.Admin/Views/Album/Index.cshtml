@@ -1,17 +1,17 @@
 ﻿@model IEnumerable<SpotifyPrototype.Application.Streaming.Dto.AlbumDto>
 
 <div class="text-center">
-    <h1 class="display-4">Álbuns</h1>
+    <h1 class="display-4">Albums</h1>
     @if (ViewBag.AutorNome != null)
     {
-        <h6>Autor: @ViewBag.AutorNome</h6>
+        <h6><strong>Author:</strong> @ViewBag.AutorNome</h6>
     }
 </div>
 
 @if (ViewBag.IdAutor != null)
 {
     <div>
-        <a type="button" role="button" class="btn btn-primary" href="/Album/Criar?IdAutor=@ViewBag.IdAutor">Cadastrar álbum</a>
+        <a type="button" role="button" class="btn btn-primary" href="/Album/Create?IdAuthor=@ViewBag.IdAutor"><strong>Create album</strong></a>
     </div>
 }
 
@@ -19,10 +19,10 @@
     <table class="table table-striped-columns">
         <thead>
             <tr>
-                <td>ID</td>
-                <td>Nome</td>
-                <td>Musicas</td>
-                <td>Capa</td>
+                <td><strong>ID</strong></td>
+                <td><strong>Name</strong></td>
+                <td><strong>Songs</strong></td>
+                <td><strong>Cover</strong></td>
                 <td></td>
             </tr>
         </thead>
@@ -39,7 +39,7 @@
                             <img src="@(item.Capa)" width="200" height="200" />
                         }
                     </td>
-                    <td><a type="button" role="button" class="btn btn-primary" href="/Album/AdicionarMusica?IdAlbum=@item.Id">Adicionar musica</a></td>
+                    <td><a type="button" role="button" class="btn btn-primary" href="/Album/AdicionarMusica?AlbumId=@item.Id"><strong>Add song</strong></a></td>
                 </tr>
             }
         </tbody>

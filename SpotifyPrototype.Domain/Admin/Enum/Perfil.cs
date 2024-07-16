@@ -8,7 +8,8 @@ namespace SpotifyPrototype.Domain.Admin.Enum
 {
     public enum Perfil
     {
-        FULL = 0,
-        NORMAL = 1,
+        ADMIN = 0,
+        PREMIUM = 1,
+        FREE = 2,
     }
 }

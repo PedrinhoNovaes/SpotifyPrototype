@@ -23,11 +23,11 @@ namespace SpotifyPrototype.STS.ProfileService
 
             var claims = new List<Claim>()
             {
-                new Claim("iss", "SpotMusic.STS"),
+                new Claim("iss", "SpotifyPrototype.STS"),
                 new Claim("name", user.Nome),
                 new Claim("email", user.Email),
                 new Claim("id", user.Id.ToString()),
-                new Claim("role", "SpotMusicScope")
+                new Claim("role", "SpotifyPrototypeScope")
             };
 
             context.IssuedClaims = claims;

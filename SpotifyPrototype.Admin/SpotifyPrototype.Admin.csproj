@@ -20,7 +20,6 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\SpotifyPrototype.Application\SpotifyPrototype.Application.csproj" />
 	  <ProjectReference Include="..\SpotifyPrototype.Repository\SpotifyPrototype.Repository.csproj" />
-	  <ProjectReference Include="..\SpotifyPrototype.Tests\SpotifyPrototype.Tests.csproj" />
 	</ItemGroup>
 
 </Project>
